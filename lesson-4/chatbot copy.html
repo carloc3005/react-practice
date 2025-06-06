@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Chatbot</title>
+  <style>
+    .app-container {
+      background-color: rgb(0, 123, 255);
+    }
+
+    .button-on {
+      background-color: rgb(25, 135, 84);
+      /* Green */
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .button-off {
+      background-color: rgb(220, 53, 69);
+      /* Red */
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .login-button {
+      background-color: rgb(0, 123, 255);
+    }
+
+    .signup-button {
+      background-color: rgb(0, 123, 255);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="js-container"></div>
+
+  <script src="https://unpkg.com/supersimpledev/react.js"></script>
+  <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+  <script src="https://unpkg.com/supersimpledev/chatbot.js"></script>
+
+  <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+  <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
+  <script type="text/babel">
+    function Practice1() {
+      // This creates a state variable called 'isOn' that starts as false
+      // 'setIsOn' is a function that lets us change the value of 'isOn'
+      const [isOn, setIsOn] = React.useState(false);
+
+      // This function runs when the button is clicked
+      const toggleButton = () => {
+        // This flips the value: if isOn is true, make it false; if false, make it true
+        setIsOn(!isOn);
+      }
+
+      return (
+        <div>
+          <button
+            // This chooses the CSS class: "button-on" if isOn is true, "button-off" if false
+            className={isOn ? "button-on" : "button-off"}
+            // This tells the button what function to run when clicked
+            onClick={toggleButton}
+          >
+            {/* This chooses what text to show: "ON" if isOn is true, "OFF" if false */}
+            {isOn ? "ON" : "OFF"}
+          </button>
+        </div>
+      );
+    }
+
+    function Practice2() {
+      const [show, setShow] = React.useState(false);
+      return (
+        <div>
+          <input placeholder="Email" />
+          <div>
+            <input placeholder="Password" type={show ? "text" : "password"} />
+            <button onClick={() => setShow(!show)}>{show ? "Hide" : "Show"}</button>
+          </div>
+        </div>
+      );
+    }
+
+    function Practice3() {
+      // Using React.useState to save a string time
+      const [time, setTime] = React.useState('');
+
+      // Using React.useEffect to run this code once after the component is created
+      React.useEffect(() => {
+        // Get the current time as a string using dayjs().format('HH:mm:ss')
+        const currentTime = dayjs().format('HH:mm:ss');
+        setTime(currentTime);
+
+        // setInterval runs a function every 1000 milliseconds (1 second)
+        const intervalId = setInterval(() => {
+          // In the function that we give to setInterval, get the time again
+          // using dayjs().format('HH:mm:ss') and update the State
+          const newTime = dayjs().format('HH:mm:ss');
+          setTime(newTime);
+        }, 1000);
+
+        // Cleanup function to clear the interval when component unmounts
+        return () => clearInterval(intervalId);
+      }, []); // Empty dependency array means this effect runs once after component creation
+
+      return (
+        <div>
+          <h2>Current time: {time}</h2>
+        </div>
+      );
+    }
+
+    function Practice4() {
+      // State to keep track of the counter
+      const [count, setCount] = React.useState(0);
+      // State to track if auto-click is active
+      const [isAutoClicking, setIsAutoClicking] = React.useState(false);
+      // useRef to save the button element and interval ID
+      const counterButtonRef = React.useRef(null);
+      const intervalRef = React.useRef(null);
+
+      // Function to increment the counter
+      const incrementCount = () => {
+        setCount(count + 1);
+      };
+
+      // Function to reset the counter
+      const resetCount = () => {
+        setCount(0);
+      };
+
+      // Function to toggle auto-click
+      const toggleAutoClick = () => {
+        if (isAutoClicking) {
+          // Stop auto-clicking
+          clearInterval(intervalRef.current);
+          setIsAutoClicking(false);
+        } else {
+          // Start auto-clicking
+          intervalRef.current = setInterval(() => {
+            // Click the counter button programmatically
+            if (counterButtonRef.current) {
+              counterButtonRef.current.click();
+            }
+          }, 1000);
+          setIsAutoClicking(true);
+        }
+      };
+
+      // Cleanup interval when component unmounts
+      React.useEffect(() => {
+        return () => {
+          if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+          }
+        };
+      }, []);
+
+      return (
+        <div>
+          <button 
+            ref={counterButtonRef}
+            onClick={incrementCount}
+            style={{
+              padding: '10px 20px',
+              margin: '5px',
+              border: '1px solid #ccc',
+              borderRadius: '5px',
+              cursor: 'pointer'
+            }}
+          >
+            Clicked {count} times
+          </button>
+          
+          <button 
+            onClick={resetCount}
+            style={{
+              padding: '10px 20px',
+              margin: '5px',
+              border: '1px solid #ccc',
+              borderRadius: '5px',
+              cursor: 'pointer'
+            }}
+          >
+            Reset
+          </button>
+          
+          <button 
+            onClick={toggleAutoClick}
+            style={{
+              padding: '10px 20px',
+              margin: '5px',
+              border: '1px solid #ccc',
+              borderRadius: '5px',
+              cursor: 'pointer',
+              backgroundColor: isAutoClicking ? '#ff6b6b' : '#51cf66',
+              color: 'white'
+            }}
+          >
+            {isAutoClicking ? 'Stop Auto Click' : 'Auto Click'}
+          </button>
+        </div>
+      );
+    }
+
+    const container = document.querySelector('.js-container');
+    ReactDOM.createRoot(container).render(<Practice4 />);
+  </script>
+</body>
+
+</html>
