@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chatbot</title>
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/chatbot.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script type="text/babel">
+      // This component handles the input box and send button
+      function ChatInput({ chatMessages, setChatMessages }) {
+        // Store what the user is typing
+        const [inputText, setInputText] = React.useState('');
+        // Track if we're waiting for chatbot response
+        const [isLoading, setIsLoading] = React.useState(false);
+
+        // Save what user types into inputText
+        function saveInputText(event) {
+          setInputText(event.target.value);
+        }
+
+        // This runs when user clicks Send button
+        async function sendMessage() {
+          // Step 1: Add user's message to the chat immediately
+          const newChatMessages = [
+            ...chatMessages, // Keep all old messages
+            {
+              message: inputText,   // What user typed
+              sender: 'user',       // Mark it as from user
+              id: crypto.randomUUID() // Give it a unique ID
+            }
+          ];
+
+          setChatMessages(newChatMessages); // Update the chat
+          setIsLoading(true); // Show that we're waiting for robot
+
+          // Step 2: Add "Loading..." message from robot
+          const loadingMessage = {
+            message: "Loading...",
+            sender: 'robot',
+            id: 'loading'
+          };
+          
+          setChatMessages([...newChatMessages, loadingMessage]);
+
+          // Step 3: Wait for chatbot to think (this takes time!)
+          const response = await Chatbot.getResponseAsync(inputText);
+          
+          // Step 4: Replace "Loading..." with real robot response
+          setChatMessages([
+            ...newChatMessages,
+            {
+              message: response,    // Robot's actual response
+              sender: 'robot',      // Mark it as from robot
+              id: crypto.randomUUID() // Give it a unique ID
+            }
+          ]);
+
+          setIsLoading(false); // Stop loading state
+          setInputText('');    // Clear the input box
+        }
+
+        // The HTML that shows on screen
+        return (
+          <>
+            {/* Input box where user types messages */}
+            <input
+              placeholder="Send a message to Chatbot"
+              size="30"
+              onChange={saveInputText}    // Run saveInputText when user types
+              value={inputText}           // Show what user is typing
+              disabled={isLoading}        // Can't type while waiting for robot
+            />
+            {/* Send button */}
+            <button
+              onClick={sendMessage}       // Run sendMessage when clicked
+              disabled={isLoading}        // Can't click while waiting for robot
+            >
+              {isLoading ? 'Sending...' : 'Send'} {/* Change text based on loading */}
+            </button>
+          </>
+        );
+      }
+
+      // This component shows one message (from user or robot)
+      function ChatMessage({ message, sender }) {
+        // These are old ways to get props (just for learning)
+        // const message = props.message;
+        // const sender = props.sender;
+        // const { message, sender } = props;
+
+        /*
+        Old way to do if/else:
+        if (sender === 'robot') {
+          return (
+            <div>
+              <img src="robot.png" width="50" />
+              {message}
+            </div>
+          );
+        }
+        */
+
+        return (
+          <div>
+            {/* Show robot image only if message is from robot */}
+            {sender === 'robot' && (
+              <img src="robot.png" width="50" />
+            )}
+            {message} {/* The actual message text */}
+            {/* Show user image only if message is from user */}
+            {sender === 'user' && (
+              <img src="user.png" width="50" />
+            )}
+          </div>
+        );
+      }
+
+      // This component shows ALL the messages in the chat
+      function ChatMessages({ chatMessages }) {
+        return (
+          <>
+            {/* Loop through each message and create a ChatMessage component */}
+            {chatMessages.map((chatMessage) => {
+              return (
+                <ChatMessage
+                  message={chatMessage.message}  // Pass the message text
+                  sender={chatMessage.sender}    // Pass who sent it (user/robot)
+                  key={chatMessage.id}           // React needs this for performance
+                />
+              );
+            })}
+          </>
+        );
+      }
+
+      // Main app component - puts everything together
+      function App() {
+        // Store all chat messages (starts with some example messages)
+        const [chatMessages, setChatMessages] = React.useState([{
+          message: 'hello chatbot',
+          sender: 'user',
+          id: 'id1'
+        }, {
+          message: 'Hello! How can I help you?',
+          sender: 'robot',
+          id: 'id2'
+        }, {
+          message: 'can you get me todays date?',
+          sender: 'user',
+          id: 'id3'
+        }, {
+          message: 'Today is September 27',
+          sender: 'robot',
+          id: 'id4'
+        }]);
+        
+        // These are old ways to destructure useState (just for learning)
+        // const [chatMessages, setChatMessages] = array;
+        // const chatMessages = array[0];
+        // const setChatMessages = array[1];
+
+        return (
+          <>
+            {/* Input box and send button */}
+            <ChatInput
+              chatMessages={chatMessages}        // Pass current messages
+              setChatMessages={setChatMessages}  // Pass function to update messages
+            />
+            {/* All the chat messages */}
+            <ChatMessages
+              chatMessages={chatMessages}        // Pass current messages to display
+            />
+          </>
+        );
+      }
+
+      // Start the React app and put it in the HTML
+      const container = document.querySelector('.js-container');
+      ReactDOM.createRoot(container).render(<App />);
+    </script>
+  </body>
+</html>

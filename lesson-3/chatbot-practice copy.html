@@ -16,29 +16,106 @@
 
   <script src="https://unpkg.com/supersimpledev/babel.js"></script>
   <script type="text/babel">
-    function App() {
-      const [inputText, setInputText] = React.useState('');
+    function Practice1() {
+      const [click, setClick] = React.useState(0);
 
-      function saveInputText(event) {
-        setInputText(event.target.value);
-      }
-
-      function resetInputText() {
-        setInputText('');
-      }
-
-      function setExampleText() {
-        setInputText('Alice');
+      function toClick() {
+        setClick(click + 1);
       }
 
       return (
-        <>
-          <input placeholder="Type a name here " onChange={saveInputText} value={inputText} />
-          <button onClick={resetInputText}>Reset</button>
-          <button onClick={setExampleText}>Set Example</button>
-          <p>Hello {inputText} </p>
-        </>
+        <div>
+          <button onClick={toClick}>Clicked {click} Times </button>
+        </div>
       );
+    }
+
+    function Practice2() {
+      const [count, setCount] = React.useState(0);
+
+      function toClick() {
+        setCount(count + 1);
+      }
+
+      return (
+        <div>
+          <button onClick={toClick}>Click {count} {count === 1 ? 'time' : 'times'}</button>
+        </div>
+      );
+    }
+
+    function Practice3() {
+      const [count, setCount] = React.useState(0);
+
+      function toClick() {
+        setCount(count + 1);
+      }
+
+      // For the correct answer on this one you just have to call the function twice like this 
+      // <Practice3 />
+      // <Practice3 />
+      return (
+        <div>
+          <button onClick={toClick}>Click {count} {count === 1 ? 'time' : 'times'}</button>
+        </div>
+      );
+    }
+
+    function Practice4({ count, setCount }) {
+      function handleClick() {
+        setCount(count + 1);
+      }
+
+      return (
+        <button onClick={handleClick}>Click {count} {count === 1 ? 'time' : 'times'}</button>
+      );
+    }
+
+    //function App() {
+    //  const [count, setCount] = React.useState(0);
+
+
+    //  return (
+    //    <div>
+    //      <Practice4 count={count} setCount={setCount} />
+    //      <Practice4 count={count} setCount={setCount} />
+    //    </div>
+    //  );
+    //}
+
+
+    function Practice5() {
+      const [count, setCount] = React.useState(0);
+
+      function toClick() {
+        setCount(count + 1);
+      }
+
+      function resetButton() {
+        setCount(0);
+      }
+
+      // For the correct answer on this one you just have to call the function twice like this 
+      // <Practice3 />
+      // <Practice3 />
+      return (
+        <div>
+          <button onClick={toClick}>Click {count} {count === 1 ? 'time' : 'times'}</button>
+          <button onClick={resetButton}>Reset </button>
+        </div>
+      );
+    }
+
+    //function App() {
+    //  return (
+    //    <div>
+    //      <Practice5 />
+    //    </div>
+    //  );
+    //}
+
+    function Practice7 () {
+      
     }
 
     const container = document.querySelector('.js-container');

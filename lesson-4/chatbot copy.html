@@ -29,15 +29,17 @@
       );
     }
 
-    function Practice2() {
-      const [isButtonOn, setButtonOn] = React.useState(false);
+    function Practice2 () {
+      const [isButtonOn, setButtonOn] = React.useState(true);
 
-      const toggleButton = () => {
-        setButtonOn(!isButtonOn);
+      function switchButtonOn () {
+        if(isButtonOn) {
+          setButtonOn(false);
+        }
       }
-
-
     }
+
+
 
 
     const container = document.querySelector('.js-container');

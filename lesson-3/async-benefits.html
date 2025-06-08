@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Async Benefits Demo</title>
+    <style>
+        button { margin: 10px; padding: 10px; font-size: 16px; }
+        .status { font-size: 18px; margin: 20px 0; }
+        .bad { color: red; }
+        .good { color: green; }
+    </style>
+</head>
+<body>
+    <h1>Async Benefits Demo</h1>
+    
+    <h2>❌ Without Async (Blocks Everything)</h2>
+    <button onclick="badSlowFunction()">Slow Function (FREEZES APP)</button>
+    <button onclick="testButton()">Test Button (try clicking during freeze)</button>
+    
+    <h2>✅ With Async (Doesn't Block)</h2>
+    <button onclick="goodSlowFunction()">Async Function (DOESN'T FREEZE)</button>
+    <button onclick="testButton()">Test Button (works while async runs)</button>
+    
+    <div id="status" class="status">Ready to test!</div>
+    <div id="counter">Counter: <span id="count">0</span></div>
+    <button onclick="incrementCounter()">Increment Counter</button>
+
+    <script>
+        let counter = 0;
+
+        function incrementCounter() {
+            counter++;
+            document.getElementById('count').textContent = counter;
+        }
+
+        function testButton() {
+            alert("I work! The app is not frozen!");
+        }
+
+        // BAD: This freezes the entire app for 3 seconds
+        function badSlowFunction() {
+            document.getElementById('status').innerHTML = '<span class="bad">⏰ Starting slow operation... APP IS FROZEN!</span>';
+            
+            // This blocks everything for 3 seconds
+            const start = Date.now();
+            while (Date.now() - start < 3000) {
+                // Just wait... blocking everything
+            }
+            
+            document.getElementById('status').innerHTML = '<span class="bad">✅ Slow operation done! (App was frozen)</span>';
+        }
+
+        // GOOD: This doesn't freeze the app
+        async function goodSlowFunction() {
+            document.getElementById('status').innerHTML = '<span class="good">⏰ Starting async operation... APP STILL WORKS!</span>';
+            
+            // This waits 3 seconds but doesn't block the app
+            await new Promise(resolve => setTimeout(resolve, 3000));
+            
+            document.getElementById('status').innerHTML = '<span class="good">✅ Async operation done! (App kept working)</span>';
+        }
+    </script>
+</body>
+</html>

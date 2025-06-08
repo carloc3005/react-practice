@@ -1,4 +1,3 @@
-12`
 <!DOCTYPE html>
 <html>
 
@@ -17,38 +16,128 @@
 
   <script src="https://unpkg.com/supersimpledev/babel.js"></script>
   <script type="text/babel">
-    function ClickCounter({ count, setCount }) {
+    function PracticeG () {
+      const [change, setChange] = React.useState('');
 
-      function handleClick() {
-        setCount(count + 1);
-      }
+      function saveData () {
+        setChange(event.target.value);
+      }      
 
       return (
-        <>
-          <button onClick={handleClick}>
-            Click {count} {count === 1 ? 'time' : 'times'}
-          </button>
-
-        </>
+        <div>
+          <input placeholder="Type a name here" className="name" value={change} onChange={saveData}/>
+          <p>{change}</p>
+        </div>
       );
     }
 
+    //function App () {
+    //  return (
+    //    <div>
+    //      < PracticeG />
+    //    </div>
+    //  );
+    //}
+    // The approach is to get whatever the string from input and save it in change
+    // MY APPROACH IS CORRECT!!!!!
 
-    function App() {
-      const [count, setCount] = React.useState(0);
 
-      function resetCount() {
-        setCount(0);
+    function PracticeH () {
+      const [change, setChange] = React.useState('');
+
+      function saveData() {
+        setChange(event.target.value)
       }
 
+    function resetButton() {
+      setChange('');
+    }
+    
+    function exampleName() {
+      setChange('Chelshey Big Tits')
+    }
+
       return (
-        <>
-          <ClickCounter count={count} setCount={setCount} />
-          <ClickCounter count={count} setCount={setCount} />
-          <button onClick={resetCount}>
-            Reset
-          </button>
-        </>
+        <div>
+          <input placeholder="Type a name here" className="name" value={change} onChange={saveData}/>
+          <button onClick={resetButton}>Reset</button>
+          <button onClick={exampleName}>Example</button>
+        </div>
+      );
+    }
+
+    //function App() {
+    //  return (
+    //    <div>
+    //      <PracticeH />
+    //    </div>
+    //  );
+    //}
+
+    //function PracticeI() {
+    //  // Create two pieces of state:
+    //  // 1. 'sent' - stores what the user is typing in the input box
+    //  // 2. 'message' - stores the message that shows up below the buttons
+    //  const [sent, setSent] = React.useState('');
+    //  const [message, setMessage] = React.useState('');
+
+    //  // This function runs every time the user types in the input box
+    //  // It saves whatever they typed into the 'sent' state
+    //  function handleMessage() {
+    //    setSent(event.target.value);
+    //  }
+
+    //  // This function runs when the Reset button is clicked
+    //  // It clears the input box and shows "Message is reset"
+    //  function resetButton() {
+    //    setMessage("Message is reset")
+    //    setSent('');
+    //  }
+
+    //  // This function runs when the user presses keys while typing in the input
+    //  function keyDown(event) {
+    //    // If they press Enter, send the message
+    //    if(event.key === 'Enter') {
+    //      setMessage("Message is send: " + sent);
+    //      setSent(''); // Clear the input box after sending
+    //    } 
+    //    // If they press Escape, reset everything
+    //    else if (event.key === 'Escape') {
+    //      resetButton();
+    //    }
+    //  }
+
+    //  return (
+    //    <div>
+    //       {/* Input box where user types their message */}
+    //       <input 
+    //         placeholder="Send a message to Chatbot" 
+    //         size="30" 
+    //         value={sent} 
+    //         onChange={handleMessage}  // Run handleMessage when user types
+    //         onKeyDown={keyDown}       // Run keyDown when user presses keys
+    //       />
+           
+    //       {/* Send button - clicking it acts like pressing Enter */}
+    //       <button onClick={keyDown}>Sent</button>
+           
+    //       {/* Reset button - clicking it clears everything */}
+    //       <button onClick={resetButton}>Reset</button>
+           
+    //       {/* This paragraph shows the current message */}
+    //       <p>{message}</p>
+    //    </div>
+    //  );
+    //}
+
+
+    
+
+    function App() {
+      return (
+        <div>
+          <PracticeI />
+        </div>
       );
     }
 
