@@ -4,8 +4,21 @@
 <head>
   <title>Chatbot</title>
   <style>
-    .button {
+    .on-button {
       background-color: rgb(25, 135, 84);
+      margin-top: 10px;
+    }
+
+    .button-on {
+      background-color: rgb(25, 135, 84);
+    }
+
+    .button-off {
+      background-color: rgb(220, 53, 69);
+    }
+    
+    .pass {
+      margin-top: 10px;
     }
   </style>
 </head>
@@ -21,12 +34,89 @@
   <script src="https://unpkg.com/supersimpledev/babel.js"></script>
   <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
   <script type="text/babel">
-    
+    function Practice1() {
+      return (
+        <div>
+          <button className="on-button">
+            ON
+            </button>
+        </div>
+      );
+    }
+
+    // function App() {
+    //   return (
+    //     <div>
+    //       <Practice1 />
+    //     </div>
+    //   );
+    // }
+
+    // function Practice2() {
+    //   const [isButtonOn, setButtonOn] = React.useState(false);
+
+    //   function toggleButton() {
+    //     setButtonOn(!isButtonOn);
+    //   }
+
+    //   return (
+    //     <div>
+    //       <button className="on-button" onClick={toggleButton}>{isButtonOn ? "ON" : "OFF"}</button>
+    //     </div>
+    //   );
+    // }
+
+    // function App() {
+    //   return (
+    //     <div>
+    //       <Practice2 /> 
+    //     </div>
+    //   );
+    // }
 
 
+    // function Practice3() {
+    //   const [isButtonOn, setButtonOn] = React.useState(false);
+
+    //   function toggleButton() {
+    //     setButtonOn(!isButtonOn);
+    //   }
+
+    // return (
+    //   <div>
+    //     <button className={isButtonOn ? "button-on" : "button-off"} onClick={toggleButton}>{isButtonOn ? "ON": "OFF"}</button>
+    //   </div>
+    // );
+    // }
+
+    function Practice4 () {
+      return (
+        <div>
+          <h1>Hello, welcome to my website</h1>
+          <div className="email">
+            <input placeholder="Email"/>
+          </div>
+          <div className="pass">
+            <input placeholder="Password"/>
+          </div>
+          <div>
+            <button className="on-button">Login</button>
+            <button className="on-button">Sign Up</button>
+          </div>
+        </div>
+      );
+    }
+
+    function App() {
+      return (
+        <div>
+          <Practice4 />
+        </div>
+      );
+    }
 
     const container = document.querySelector('.js-container');
-    ReactDOM.createRoot(container).render(<Practice1 />);
+    ReactDOM.createRoot(container).render(<App />);
   </script>
 </body>
 
