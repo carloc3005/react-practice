@@ -89,28 +89,76 @@
     // );
     // }
 
-    function Practice4 () {
-      return (
-        <div>
-          <h1>Hello, welcome to my website</h1>
-          <div className="email">
-            <input placeholder="Email"/>
-          </div>
-          <div className="pass">
-            <input placeholder="Password"/>
-          </div>
-          <div>
-            <button className="on-button">Login</button>
-            <button className="on-button">Sign Up</button>
-          </div>
-        </div>
-      );
+    //function Practice4 () {
+    //  return (
+    //    <div>
+    //      <h1>Hello, welcome to my website</h1>
+    //      <div className="email">
+    //        <input placeholder="Email"/>
+    //      </div>
+    //      <div className="pass">
+    //        <input placeholder="Password"/>
+    //      </div>
+    //      <div>
+    //        <button className="on-button">Login</button>
+    //        <button className="on-button">Sign Up</button>
+    //      </div>
+    //    </div>
+    //  );
+    //}
+
+    //function Practice5() {
+    //  const [showPassword, setShowPassword] = React.useState(false);
+
+    //  function showPass() {
+    //    setShowPassword(!showPassword)
+    //  }
+
+    //  return (
+    //    <div>
+    //      <h1>Hello, welcome to my website</h1>
+    //      <div className="email">
+    //        <input placeholder="Email"/>
+    //      </div>
+    //      <div className="pass">
+    //        <input placeholder="Password" type={showPassword ? "text" : "password"} />
+    //        <button onClick={showPass}>{showPassword ? "Show" : "Hide"}</button>
+    //      </div>
+    //      <div>
+    //        <button className="on-button">Login</button>
+    //        <button className="on-button">Sign Up</button>
+    //      </div>
+    //    </div>
+    //  );
+    //}
+
+
+    //function Practice6 () {
+    //  const [time, setTime] = React.useState(dayjs().format('HH:mm:ss'));
+
+    //  React.useEffect(() => {
+    //    const intervalid = setInterval(() => {
+    //      setTime(dayjs().format('HH:mm:ss'));
+    //    }, 1000);
+    //    return () => clearInterval(intervalid);
+    //  }, []);
+
+    //  return (
+    //    <div>
+    //      <h1>Current Time: {time} </h1>
+    //    </div>
+    //  );
+    //}
+
+
+    function Practice7() {
+      
     }
 
     function App() {
       return (
         <div>
-          <Practice4 />
+          <Practice6 />
         </div>
       );
     }
