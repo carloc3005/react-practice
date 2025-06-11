@@ -1,0 +1,34 @@
+.send-button {
+  background-color: #007bff; /* Blue send button */
+  color: white;
+  padding: 12px 20px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 20px; /* More rounded */
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.2s ease; /* Smooth hover effect */
+}
+
+.send-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.chat-input {
+  padding: 12px 15px;
+  border-radius: 20px; /* More rounded */
+  border: 1px solid #ccc; /* Subtle border */
+  font-size: 15px;
+  flex-grow: 1;
+  background-color: #fff; /* White input background */
+}
+
+.app-container { /* This is for the input bar itself */
+  display: flex;
+  align-items: center;
+  padding: 15px; /* Increased padding */
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #f8f9fa; /* Light background for input area */
+  border-top: 1px solid #e0e0e0; /* Separator line */
+}

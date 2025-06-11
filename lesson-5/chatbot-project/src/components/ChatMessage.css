@@ -1,0 +1,40 @@
+.chat-message-user {
+  display: flex;
+  justify-content: flex-end; /* Corrected from 'end' */
+  align-items: flex-start; /* Corrected from 'start' */
+}
+
+.chat-message-robot {
+  display: flex;
+  justify-content: flex-start; /* Added for consistency */
+  align-items: flex-start; /* Corrected from 'start' */
+}
+
+.chat-message-text {
+  padding: 12px 18px; /* Adjusted padding */
+  border-radius: 18px; /* More rounded bubbles */
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-bottom: 5px; /* Reduced bottom margin */
+  max-width: 70%; /* Allow messages to be a bit wider */
+  line-height: 1.4; /* Improved readability */
+}
+
+/* User message bubble style */
+.chat-message-user .chat-message-text {
+  background-color: #007bff; /* Blue for user messages */
+  color: white;
+}
+
+/* Robot message bubble style */
+.chat-message-robot .chat-message-text {
+  background-color: #e9ecef; /* Lighter gray for robot messages */
+  color: #333; /* Darker text for robot messages */
+}
+
+.chat-message-profile {
+  width: 40px; /* Slightly smaller profile pics */
+  height: 40px; /* Ensure aspect ratio */
+  border-radius: 50%; /* Circular profile pics */
+  object-fit: cover; /* Ensure images cover the area nicely */
+}

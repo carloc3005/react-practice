@@ -1,0 +1,10 @@
+.chat-messages-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Slightly reduced gap */
+  padding: 20px; /* Increased padding */
+  flex-grow: 1;
+  overflow-y: auto;
+  width: 100%;
+  box-sizing: border-box;
+}
