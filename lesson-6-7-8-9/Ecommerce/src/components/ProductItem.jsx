@@ -19,7 +19,7 @@ function ProductItem({ product, loadCart }) {
   };
 
   return (
-    <div className="product-container">
+    <div className="product-container" data-testid="product-container">
       <div className="product-image-container">
         <img
           className="product-image"
