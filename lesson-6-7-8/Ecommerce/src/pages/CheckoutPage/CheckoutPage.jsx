@@ -5,21 +5,39 @@ import OrderSummary from '../../components/OrderSummary';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 
-function CheckoutPage({ cart }) {
+function CheckoutPage({ cart, handleDeliveryOptionChange, handleDeleteItem, handleUpdateQuantity }) {
   const [delivery, setDelivery] = useState([]);
   const [paymentSummary, setPaymentSummary] = useState(null);
 
   useEffect(() => {
-    const fetchCheckoutData = async () => {
+    const fetchDeliveryOptions = async () => {
       const deliveryResponse = await axios.get('/api/delivery-options?expand=estimatedDeliveryTime');
       setDelivery(deliveryResponse.data);
-
-      const paymentResponse = await axios.get('/api/payment-summary');
-      setPaymentSummary(paymentResponse.data);
     };
 
-    fetchCheckoutData();
-  }, []);
+    fetchDeliveryOptions();
+  }, []); // Fetch delivery options only once on mount
+
+  useEffect(() => {
+    const fetchPaymentSummary = async () => {
+      if (cart && cart.length > 0) { // Only fetch if cart is available and not empty
+        const paymentResponse = await axios.get('/api/payment-summary');
+        setPaymentSummary(paymentResponse.data);
+      } else if (cart && cart.length === 0) {
+        // Optionally, set a default or empty payment summary if cart is empty
+        setPaymentSummary({
+          totalItems: 0,
+          productCostCents: 0,
+          shippingCostCents: 0,
+          totalCostBeforeTaxCents: 0,
+          taxCents: 0,
+          totalCostCents: 0,
+        });
+      }
+    };
+
+    fetchPaymentSummary();
+  }, [cart]); // Re-fetch payment summary when cart changes
 
   return (
     <>
@@ -51,7 +69,7 @@ function CheckoutPage({ cart }) {
         <div className="page-title">Review your order</div>
 
         <div className="checkout-grid">
-          <OrderSummary cart={cart} delivery={delivery} />
+          <OrderSummary cart={cart} delivery={delivery} handleDeliveryOptionChange={handleDeliveryOptionChange} handleDeleteItem={handleDeleteItem} handleUpdateQuantity={handleUpdateQuantity} />
 
           <PaymentSummary paymentSummary={paymentSummary} />
         </div>

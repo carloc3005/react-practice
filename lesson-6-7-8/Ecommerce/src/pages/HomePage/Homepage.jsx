@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import ProductsGrid from '../../components/ProductsGrid'; // Adjusted path
 
-function Homepage({ cart }) {
+function Homepage({ cart, loadCart }) {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
@@ -23,7 +23,7 @@ function Homepage({ cart }) {
             <Header cart={cart} />
 
             <div className="home-page">
-                <ProductsGrid products={products} />
+                <ProductsGrid products={products} loadCart={loadCart}/>
             </div>
         </>
     );
