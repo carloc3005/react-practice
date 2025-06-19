@@ -1,0 +1,104 @@
+
+# TypeScript Notes for Beginners
+
+## What is TypeScript?
+
+*   **Superset of JavaScript:** TypeScript (TS) is built on top of JavaScript (JS). All valid JavaScript code is also valid TypeScript code.
+*   **Static Types:** The main feature of TypeScript is that it adds "types" to JavaScript. This lets you tell the computer what kind of data to expect in a variable or a function.
+*   **Error Checking:** By knowing the types, TypeScript can check your code for mistakes *before* you even run it. This helps you catch bugs early and write more reliable code.
+*   **Compilation:** Browsers don't understand TypeScript. You need a tool (the TypeScript compiler, `tsc`) to convert your `.ts` files into regular `.js` files that can run anywhere.
+
+---
+
+## Basic Types
+
+Here are the most common types you'll use.
+
+*   `string`: For text values.
+    *   `let name: string = "Alice";`
+
+*   `number`: For all numbers (integers and decimals).
+    *   `let age: number = 30;`
+
+*   `boolean`: For true or false values.
+    *   `let isLoggedIn: boolean = true;`
+
+*   `any`: A way to opt-out of type checking. Use this carefully, as it removes the safety benefits of TypeScript.
+    *   `let something: any = "hello";`
+    *   `something = 50;` // This is allowed
+
+*   `array`: For lists of items. You can specify the type of items in the array.
+    *   `let numbers: number[] = [1, 2, 3];`
+    *   `let names: string[] = ["Alice", "Bob"];`
+
+---
+
+## Functions
+
+You can add types to a function's parameters (inputs) and its return value (output).
+
+```typescript
+// This function takes two numbers and is expected to return a number.
+function add(x: number, y: number): number {
+  return x + y;
+}
+
+// This function takes a string and doesn't return anything (void).
+function logMessage(message: string): void {
+  console.log(message);
+}
+```
+
+---
+
+## Type Inference
+
+TypeScript is smart! If you don't specify a type, it will often guess (infer) it based on the value you provide.
+
+```typescript
+let luckyNumber = 7; // TypeScript infers this is a 'number'
+// luckyNumber = "seven"; // This would cause an error!
+```
+
+---
+
+## Objects and Interfaces
+
+An `interface` is a powerful way to describe the "shape" of an object.
+
+```typescript
+// Define the shape of a User object
+interface User {
+  name: string;
+  id: number;
+  isAdmin?: boolean; // The '?' makes this property optional
+}
+
+// Create an object that follows the User interface
+let user: User = {
+  name: "John Doe",
+  id: 101
+};
+
+// This function expects an object that matches the User interface
+function welcomeUser(user: User): string {
+  return `Welcome, ${user.name}!`;
+}
+```
+
+---
+
+## Union Types
+
+A union type allows a variable to hold a value of several different types. You use the `|` symbol to define them.
+
+```typescript
+// This variable can be either a string or a number
+let id: string | number;
+
+id = 101;       // OK
+id = "abc-123"; // OK
+// id = false;  // Error! It can't be a boolean.
+```
+
+This is a great feature for functions that can handle different kinds of input.

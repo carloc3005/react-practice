@@ -1,14 +1,13 @@
 {
-  "name": "ecommerce",
+  "name": "ecommerce-project-ts",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "zip": "cd ecommerce-backend && npm run zip"
+    "preview": "vite preview"
   },
   "dependencies": {
     "axios": "^1.10.0",
